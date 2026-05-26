@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Talk2Me/Talk2Me.vcxproj" Id="d13750ab-892c-48ab-b8af-138a19af2a29" />
+</Solution>
