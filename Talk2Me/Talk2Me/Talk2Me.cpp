@@ -1,14 +1,13 @@
-// Talk2Me.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
 #include <vector>
 
 using namespace std;
 
 struct User
 {
-	vector<string> Username;
+	string CurrentUser;
+	string Usernames;
 };
 
 struct Coworkers
@@ -26,33 +25,77 @@ struct MessageData
 class UserCommands
 {
 public:
-	string inputCommand;
-
-	vector<MessageData> message;
-	MessageData data;
-
 	User user;
+
+	vector<MessageData> folder;
+
+
+
 
 	void Login()
 	{
-		cin >> inputCommand;
-		user.Username.push_back(inputCommand + "\n");
+		string userInput;
 
+		cout << "Username: ";
+		cin >> userInput;
+		user.CurrentUser.assign(userInput);
 
-	}
-
-	void PrintUsers()
-	{
-		for (int i = 0; i < user.Username.size(); i++)
-		{
-			cout << user.Username.at(i);
-		}
 	}
 
 	void SendMessage()
 	{
+		MessageData messageToSend;
+
+		string userInput;
+
+		cout << "To: ";
+		getline(cin, userInput);
+		messageToSend.To = userInput;
+
+		cout << "From: ";
+		getline(cin, userInput);
+		messageToSend.From = userInput;
+
+		cout << "Message: ";
+		getline(cin, userInput);
+		messageToSend.Message = userInput;
+		//messagedata asset
+		//3 strings
+
+		folder.push_back(messageToSend);
+		//put into folder
+	}
+
+	void PrintMessages()
+	{
+		for (MessageData data : folder)
+		{
+			if (data.To.compare(user.CurrentUser) == 0)
+			{
+				cout << "To: " << data.To + "\n";
+				cout << "From: " + data.From + "\n";
+				cout << "Message: " + data.Message + "\n";
+			}
+		}
 
 	}
+
+	void Logout()
+	{
+		cout << "You have logged out \n";
+		user.CurrentUser.clear();
+	}
+
+	void PrintUsers()
+	{
+		cout << "print users: \n";
+		for (int i = 0; i < user.Usernames.size(); i++)
+		{
+			cout << user.Usernames.at(i);
+		}
+	}
+
+
 };
 
 int main()
@@ -62,23 +105,36 @@ int main()
 	Coworkers coworkers;
 	UserCommands commands;
 
-
+	string userInput;
 
 	while (1)
 	{
-		cin >> commands.inputCommand;
+		cout << "Your options are: Login, Send Message, Read Message, Logout";
+		getline(cin, userInput);
 
-		if (commands.inputCommand == "login")
+		if (userInput == "Login")
 		{
-			cout << "Username: ";
 			commands.Login();
 		}
 
-
-		if (commands.inputCommand == "users")
+		if (userInput == "Send Message")
 		{
-			cout << "print users: \n";
+			commands.SendMessage();
+		}
+
+		if (userInput == "Read Message")
+		{
+			commands.PrintMessages();
+		}
+
+		if (userInput == "Users")
+		{
 			commands.PrintUsers();
+		}
+
+		if (userInput == "Logout")
+		{
+			commands.Logout();
 		}
 	}
 
