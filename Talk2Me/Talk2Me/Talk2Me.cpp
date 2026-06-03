@@ -109,7 +109,7 @@ int main()
 
 	while (1)
 	{
-		cout << "Your options are: Login, Send Message, Read Message, Logout";
+		cout << "Your options are: Login, Send Message, Read Message, Logout \n";
 		getline(cin, userInput);
 
 		if (userInput == "Login")
