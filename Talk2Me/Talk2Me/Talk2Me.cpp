@@ -4,15 +4,14 @@
 
 using namespace std;
 
-struct User
+struct ActiveUser
 {
 	string CurrentUser;
-	string Usernames;
 };
 
-struct Coworkers
+struct UsernamesData
 {
-	vector<string> coworkernames;
+	vector<string> Usernames;
 };
 
 struct MessageData
@@ -25,12 +24,10 @@ struct MessageData
 class UserCommands
 {
 public:
-	User user;
+	ActiveUser User;
+	UsernamesData ListUsernames;
 
-	vector<MessageData> folder;
-
-
-
+	vector<MessageData> Folder;
 
 	void Login()
 	{
@@ -38,7 +35,7 @@ public:
 
 		cout << "Username: ";
 		cin >> userInput;
-		user.CurrentUser.assign(userInput);
+		User.CurrentUser.assign(userInput);
 
 	}
 
@@ -49,11 +46,11 @@ public:
 		string userInput;
 
 		cout << "To: ";
-		getline(cin, userInput);
+		cin >> userInput;
 		messageToSend.To = userInput;
 
 		cout << "From: ";
-		getline(cin, userInput);
+		cin >> userInput;
 		messageToSend.From = userInput;
 
 		cout << "Message: ";
@@ -62,55 +59,64 @@ public:
 		//messagedata asset
 		//3 strings
 
-		folder.push_back(messageToSend);
+		Folder.push_back(messageToSend);
 		//put into folder
 	}
 
 	void PrintMessages()
 	{
-		for (MessageData data : folder)
+		for (MessageData data : Folder)
 		{
-			if (data.To.compare(user.CurrentUser) == 0)
+			if (data.To == User.CurrentUser)
 			{
 				cout << "To: " << data.To + "\n";
 				cout << "From: " + data.From + "\n";
 				cout << "Message: " + data.Message + "\n";
 			}
 		}
-
 	}
 
 	void Logout()
 	{
 		cout << "You have logged out \n";
-		user.CurrentUser.clear();
+		User.CurrentUser.clear();
 	}
 
 	void PrintUsers()
 	{
 		cout << "print users: \n";
-		for (int i = 0; i < user.Usernames.size(); i++)
+		for (int i = 0; i < ListUsernames.Usernames.size(); i++)
 		{
-			cout << user.Usernames.at(i);
+			cout << ListUsernames.Usernames[i];
 		}
 	}
 
 
 };
 
+//Next steps
+//Error messages if I enter something wrong
+//Don't make me type so much for the menu
+//How do I know who I'm logged in as?
+//mAKE IT CASE insenstive
+//clear screen system("cls");
+
+
 int main()
 {
 
-	User user;
-	Coworkers coworkers;
+	ActiveUser user;
+	UsernamesData usernamesList;
 	UserCommands commands;
 
 	string userInput;
 
 	while (1)
 	{
-		cout << "Your options are: Login, Send Message, Read Message, Logout \n";
-		getline(cin, userInput);
+		cout << "\n Your options are: Login, Send Message, Read Message, Logout \n";
+		cin >> userInput;
+			system("CLS");
+
 
 		if (userInput == "Login")
 		{
@@ -140,6 +146,9 @@ int main()
 
 	return 0;
 }
+
+
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Talk2Me/Talk2Me.vcxproj" />
+  <Project Path="Talk2Me/Talk2Me.vcxproj" Id="4a0de773-12c2-4e7e-87f2-9121f195c446" />
 </Solution>
