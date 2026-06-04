@@ -33,9 +33,9 @@ public:
 	{
 		string userInput;
 
-		cout << "Username: ";
+		cout << "Enter Username: ";
 		cin >> userInput;
-		User.CurrentUser.assign(userInput);
+		User.CurrentUser.append(userInput);
 
 	}
 
@@ -99,49 +99,52 @@ public:
 //Don't make me type so much for the menu
 //How do I know who I'm logged in as?
 //mAKE IT CASE insenstive
-//clear screen system("cls");
+// 
+// 
+//clear screen system("cls");----------
 
 
 int main()
 {
-
-	ActiveUser user;
-	UsernamesData usernamesList;
 	UserCommands commands;
 
 	string userInput;
 
 	while (1)
 	{
-		cout << "\n Your options are: Login, Send Message, Read Message, Logout \n";
-		cin >> userInput;
 			system("CLS");
+			if(!commands.User.CurrentUser.empty())
+			{
+				cout << "Logged in as: " + commands.User.CurrentUser;
+				cout << "\nYour options are: Send, Read, Logout \n";
 
+				cin >> userInput;
 
-		if (userInput == "Login")
-		{
-			commands.Login();
-		}
+				if (userInput == "send")
+				{
+					commands.SendMessage();
+				}
 
-		if (userInput == "Send Message")
-		{
-			commands.SendMessage();
-		}
+				if (userInput == "read")
+				{
+					commands.PrintMessages();
+				}
 
-		if (userInput == "Read Message")
-		{
-			commands.PrintMessages();
-		}
+				if (userInput == "users")
+				{
+					commands.PrintUsers();
+				}
 
-		if (userInput == "Users")
-		{
-			commands.PrintUsers();
-		}
+				if (userInput == "logout")
+				{
+					commands.Logout();
+				}
+			}
+			else
+			{
+				commands.Login();
+			}
 
-		if (userInput == "Logout")
-		{
-			commands.Logout();
-		}
 	}
 
 	return 0;
