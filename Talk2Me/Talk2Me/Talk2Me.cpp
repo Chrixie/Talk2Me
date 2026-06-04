@@ -45,6 +45,7 @@ public:
 
 		string userInput;
 
+
 		cout << "To: ";
 		cin >> userInput;
 		messageToSend.To = userInput;
@@ -54,6 +55,7 @@ public:
 		messageToSend.From = userInput;
 
 		cout << "Message: ";
+		cin.ignore();
 		getline(cin, userInput);
 		messageToSend.Message = userInput;
 		//messagedata asset
@@ -97,11 +99,11 @@ public:
 //Next steps
 //Error messages if I enter something wrong
 //Don't make me type so much for the menu
+//clear screen system("cls");
+// 
+// FINISHED
 //How do I know who I'm logged in as?
 //mAKE IT CASE insenstive
-// 
-// 
-//clear screen system("cls");----------
 
 
 int main()
@@ -112,32 +114,45 @@ int main()
 
 	while (1)
 	{
-			system("CLS");
 			if(!commands.User.CurrentUser.empty())
 			{
+
 				cout << "Logged in as: " + commands.User.CurrentUser;
 				cout << "\nYour options are: Send, Read, Logout \n";
 
 				cin >> userInput;
 
+				for (int i = 0; i < userInput.size(); i++)
+				{
+					userInput[i] = tolower(userInput[i]);
+				}
+
 				if (userInput == "send")
 				{
 					commands.SendMessage();
+					system("CLS");
 				}
 
-				if (userInput == "read")
+				else if (userInput == "read")
 				{
 					commands.PrintMessages();
 				}
 
-				if (userInput == "users")
+				else if (userInput == "users")
 				{
 					commands.PrintUsers();
 				}
 
-				if (userInput == "logout")
+				else if (userInput == "logout")
 				{
 					commands.Logout();
+					system("CLS");
+				}
+
+				else
+				{
+					system("CLS");
+					cout << "INVALID COMMAND\n";
 				}
 			}
 			else
