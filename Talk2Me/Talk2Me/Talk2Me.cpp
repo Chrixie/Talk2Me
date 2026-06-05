@@ -17,19 +17,30 @@ struct MessageData
 	string Message;
 };
 
+class UserInterface
+{
+public:
+	void WindowUI();
+
+private:
+	UserCommands user;
+};
+
 class UserCommands
 {
 public:
-
-	ActiveUser User;
-
-	vector<MessageData> Folder;
 
 	void Login();
 	void SendMessage();
 	void ReadMessages();
 	void Logout();
-	void UserInterface();
+
+	string GetUser() { return User.CurrentUser; }
+
+private:
+	ActiveUser User;
+	vector<MessageData> Folder;
+
 };
 
 void UserCommands::Login()
@@ -90,16 +101,16 @@ void UserCommands::Logout()
 	system("CLS");
 }
 
-void UserCommands::UserInterface()
+void UserInterface::WindowUI()
 {
 	string lines;
 
-	for (int i = 0; i < User.CurrentUser.size(); i++)
+	for (int i = 0; i < user.GetUser().size(); i++)
 	{
 		lines.append("-");
 	}
 	cout << lines + "-----------------\n";
-	cout << "| Logged in as: " + User.CurrentUser + "|\n";
+	cout << "| Logged in as: " + user.GetUser() + "|\n";
 	cout << "--------------------------------------------------------------------------------------------";
 	cout << "\n|Press corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout |\n";
 	cout << "--------------------------------------------------------------------------------------------\n";
@@ -108,6 +119,7 @@ void UserCommands::UserInterface()
 int main()
 {
 	UserCommands commands;
+	UserInterface interface;
 
 	char userKey = ' ';
 
