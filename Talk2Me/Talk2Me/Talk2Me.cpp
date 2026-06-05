@@ -38,6 +38,7 @@ public:
 		cin >> userInput;
 		User.CurrentUser.append(userInput);
 
+		system("CLS");
 	}
 
 	void SendMessage()
@@ -64,6 +65,8 @@ public:
 
 		Folder.push_back(messageToSend);
 		//put into folder
+
+		system("CLS");
 	}
 
 	void ReadMessages()
@@ -74,7 +77,7 @@ public:
 			{
 				cout << "To: " << data.To + "\n";
 				cout << "From: " + data.From + "\n";
-				cout << "Message: " + data.Message + "\n";
+				cout << "Message: " + data.Message + "\n\n";
 			}
 		}
 	}
@@ -83,6 +86,8 @@ public:
 	{
 		cout << "You have logged out \n";
 		User.CurrentUser.clear();
+
+		system("CLS");
 	}
 
 	void PrintUsers()
@@ -94,7 +99,11 @@ public:
 		}
 	}
 
-
+	void UserInterface()
+	{
+		cout << "Logged in as: " + User.CurrentUser;
+		cout << "\nPress corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout \n";
+	}
 };
 
 //Next steps
@@ -119,8 +128,7 @@ int main()
 			if(!commands.User.CurrentUser.empty())
 			{
 
-				cout << "\nLogged in as: " + commands.User.CurrentUser;
-				cout << "\nPress corrosponding key: s = SendMessage, r = Read messages,  l = Logout \n";
+				commands.UserInterface();
 
 				userKey = _getch();
 
@@ -141,7 +149,7 @@ int main()
 				if (userInput == "send" || userKey == 's')
 				{
 					commands.SendMessage();
-					system("CLS");
+
 				}
 
 				else if (userInput == "read" || userKey == 'r')
@@ -149,15 +157,14 @@ int main()
 					commands.ReadMessages();
 				}
 
-				else if (userInput == "users" || userKey == 'u')
+				else if (userKey == 'c')
 				{
-					commands.PrintUsers();
+					system("CLS");
 				}
 
 				else if (userInput == "logout" || userKey == 'l')
 				{
 					commands.Logout();
-					system("CLS");
 				}
 
 				else
@@ -177,6 +184,10 @@ int main()
 }
 
 
+				//else if (userInput == "users" || userKey == 'u')
+				//{
+				//	commands.PrintUsers();
+				//}
 
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
