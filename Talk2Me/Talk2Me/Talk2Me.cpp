@@ -21,7 +21,6 @@ class UserInterface
 {
 public:
 	void UIHeaderMessage(string user);
-
 };
 
 class UserCommands
@@ -125,61 +124,60 @@ void UserInterface::UIHeaderMessage(string user)
 	cout << "--------------------------------------------------------------------------------------------\n";
 }
 
-
-	void ProgramLoop::Run()
+void ProgramLoop::Run()
+{
+	while (1)
 	{
-		while (1)
+		if (!commands.GetUser().empty())
 		{
-			if (!commands.GetUser().empty())
+
+			ui.UIHeaderMessage(commands.GetUser());
+
+			userKey = _getch();
+
+			for (int i = 0; i < userKey; i++)
 			{
-
-				ui.UIHeaderMessage(commands.GetUser());
-
-				userKey = _getch();
-
-				for (int i = 0; i < userKey; i++)
-				{
-					userKey = tolower(userKey);
-				}
-
-				if (userKey == 's')
-				{
-					commands.SendMessage();
-
-				}
-
-				else if (userKey == 'r')
-				{
-					commands.ReadMessages();
-				}
-
-				else if (userKey == 'c')
-				{
-					system("CLS");
-				}
-
-				else if (userKey == 'l')
-				{
-					commands.Logout();
-				}
-				
-				else if(userKey == 'q')
-				{
-					break;
-				}
-
-				else
-				{
-					system("CLS");
-					cout << "INVALID COMMAND\n";
-				}
+				userKey = tolower(userKey);
 			}
+
+			if (userKey == 's')
+			{
+				commands.SendMessage();
+
+			}
+
+			else if (userKey == 'r')
+			{
+				commands.ReadMessages();
+			}
+
+			else if (userKey == 'c')
+			{
+				system("CLS");
+			}
+
+			else if (userKey == 'l')
+			{
+				commands.Logout();
+			}
+
+			else if (userKey == 'q')
+			{
+				break;
+			}
+
 			else
 			{
-				commands.Login();
+				system("CLS");
+				cout << "INVALID COMMAND\n";
 			}
 		}
+		else
+		{
+			commands.Login();
+		}
 	}
+}
 
 int main()
 {
