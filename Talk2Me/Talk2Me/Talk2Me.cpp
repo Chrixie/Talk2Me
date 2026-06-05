@@ -101,8 +101,18 @@ public:
 
 	void UserInterface()
 	{
-		cout << "Logged in as: " + User.CurrentUser;
-		cout << "\nPress corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout \n";
+		string lines;
+
+		for(int i = 0; i < User.CurrentUser.size(); i ++)
+		{
+			lines.append("-");
+		}
+		cout << lines + "-----------------\n";
+		cout << "| Logged in as: " + User.CurrentUser + "|\n";
+		cout << lines + "-----------------\n";
+		cout << "\n--------------------------------------------------------------------------------------------";
+		cout << "\n|Press corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout |\n";
+		cout << "--------------------------------------------------------------------------------------------";
 	}
 };
 
