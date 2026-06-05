@@ -17,7 +17,7 @@ struct MessageData
 	string Message;
 };
 
-class UserInterface 
+class UserInterface
 {
 public:
 	void UIHeaderMessage(string user);
@@ -32,6 +32,7 @@ public:
 	void SendMessage();
 	void ReadMessages();
 	void Logout();
+	int Quit() { return 1; }
 
 	string GetUser() { return User.CurrentUser; }
 
@@ -113,16 +114,20 @@ void UserInterface::UIHeaderMessage(string user)
 	cout << "--------------------------------------------------------------------------------------------\n";
 }
 
-int main()
+class ProgramLoop
 {
+private:
 	UserCommands commands;
 	UserInterface ui;
 
 	char userKey = ' ';
 
-	while (1)
+public:
+	void Run()
 	{
-			if(!commands.GetUser().empty())
+		while (1)
+		{
+			if (!commands.GetUser().empty())
 			{
 
 				ui.UIHeaderMessage(commands.GetUser());
@@ -154,6 +159,11 @@ int main()
 				{
 					commands.Logout();
 				}
+				
+				else if(userKey == 'q')
+				{
+					commands.Quit();
+				}
 
 				else
 				{
@@ -165,8 +175,14 @@ int main()
 			{
 				commands.Login();
 			}
-
+		}
 	}
+};
 
+int main()
+{
+	ProgramLoop Program;
+
+	Program.Run();
 	return 0;
 }
