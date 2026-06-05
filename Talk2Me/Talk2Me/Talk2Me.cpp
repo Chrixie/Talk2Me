@@ -22,8 +22,6 @@ class UserInterface
 public:
 	void WindowUI();
 
-private:
-	UserCommands user;
 };
 
 class UserCommands
@@ -40,7 +38,6 @@ public:
 private:
 	ActiveUser User;
 	vector<MessageData> Folder;
-
 };
 
 void UserCommands::Login()
@@ -103,14 +100,15 @@ void UserCommands::Logout()
 
 void UserInterface::WindowUI()
 {
+	UserCommands activeuser;
 	string lines;
 
-	for (int i = 0; i < user.GetUser().size(); i++)
+	for (int i = 0; i < activeuser.GetUser().size(); i++)
 	{
 		lines.append("-");
 	}
 	cout << lines + "-----------------\n";
-	cout << "| Logged in as: " + user.GetUser() + "|\n";
+	cout << "| Logged in as: " + activeuser.GetUser() + "|\n";
 	cout << "--------------------------------------------------------------------------------------------";
 	cout << "\n|Press corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout |\n";
 	cout << "--------------------------------------------------------------------------------------------\n";
@@ -119,7 +117,7 @@ void UserInterface::WindowUI()
 int main()
 {
 	UserCommands commands;
-	UserInterface interface;
+	UserInterface ui;
 
 	char userKey = ' ';
 
@@ -128,7 +126,7 @@ int main()
 			if(!commands.GetUser().empty())
 			{
 
-				interface.WindowUI();
+				ui.WindowUI();
 
 				userKey = _getch();
 
