@@ -32,13 +32,24 @@ public:
 	void SendMessage();
 	void ReadMessages();
 	void Logout();
-	int Quit() { return 1; }
 
 	string GetUser() { return User.CurrentUser; }
 
 private:
 	ActiveUser User;
 	vector<MessageData> Folder;
+};
+
+class ProgramLoop
+{
+private:
+	UserCommands commands;
+	UserInterface ui;
+
+	char userKey = ' ';
+
+public:
+	void Run();
 };
 
 void UserCommands::Login()
@@ -114,16 +125,8 @@ void UserInterface::UIHeaderMessage(string user)
 	cout << "--------------------------------------------------------------------------------------------\n";
 }
 
-class ProgramLoop
-{
-private:
-	UserCommands commands;
-	UserInterface ui;
 
-	char userKey = ' ';
-
-public:
-	void Run()
+	void ProgramLoop::Run()
 	{
 		while (1)
 		{
@@ -162,7 +165,7 @@ public:
 				
 				else if(userKey == 'q')
 				{
-					commands.Quit();
+					break;
 				}
 
 				else
@@ -177,7 +180,6 @@ public:
 			}
 		}
 	}
-};
 
 int main()
 {
