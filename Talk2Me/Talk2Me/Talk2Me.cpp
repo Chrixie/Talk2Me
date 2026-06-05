@@ -20,7 +20,7 @@ struct MessageData
 class UserInterface 
 {
 public:
-	void WindowUI(string user);
+	void UIHeaderMessage(string user);
 
 };
 
@@ -98,7 +98,7 @@ void UserCommands::Logout()
 	system("CLS");
 }
 
-void UserInterface::WindowUI(string user)
+void UserInterface::UIHeaderMessage(string user)
 {
 	string lines;
 
@@ -125,7 +125,7 @@ int main()
 			if(!commands.GetUser().empty())
 			{
 
-				ui.WindowUI(commands.GetUser());
+				ui.UIHeaderMessage(commands.GetUser());
 
 				userKey = _getch();
 
