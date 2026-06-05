@@ -17,10 +17,10 @@ struct MessageData
 	string Message;
 };
 
-class UserInterface
+class UserInterface 
 {
 public:
-	void WindowUI();
+	void WindowUI(string user);
 
 };
 
@@ -98,17 +98,16 @@ void UserCommands::Logout()
 	system("CLS");
 }
 
-void UserInterface::WindowUI()
+void UserInterface::WindowUI(string user)
 {
-	UserCommands activeuser;
 	string lines;
 
-	for (int i = 0; i < activeuser.GetUser().size(); i++)
+	for (int i = 0; i < user.size(); i++)
 	{
 		lines.append("-");
 	}
 	cout << lines + "-----------------\n";
-	cout << "| Logged in as: " + activeuser.GetUser() + "|\n";
+	cout << "| Logged in as: " + user + "|\n";
 	cout << "--------------------------------------------------------------------------------------------";
 	cout << "\n|Press corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout |\n";
 	cout << "--------------------------------------------------------------------------------------------\n";
@@ -126,7 +125,7 @@ int main()
 			if(!commands.GetUser().empty())
 			{
 
-				ui.WindowUI();
+				ui.WindowUI(commands.GetUser());
 
 				userKey = _getch();
 
