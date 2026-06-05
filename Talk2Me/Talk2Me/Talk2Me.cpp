@@ -10,11 +10,6 @@ struct ActiveUser
 	string CurrentUser;
 };
 
-struct UsernamesData
-{
-	vector<string> Usernames;
-};
-
 struct MessageData
 {
 	string To;
@@ -25,112 +20,95 @@ struct MessageData
 class UserCommands
 {
 public:
+
 	ActiveUser User;
-	UsernamesData ListUsernames;
 
 	vector<MessageData> Folder;
 
-	void Login()
-	{
-		string userInput;
-
-		cout << "Enter Username: ";
-		cin >> userInput;
-		User.CurrentUser.append(userInput);
-
-		system("CLS");
-	}
-
-	void SendMessage()
-	{
-		MessageData messageToSend;
-
-		string userInput;
-
-
-		cout << "To: ";
-		cin >> userInput;
-		messageToSend.To = userInput;
-
-		cout << "From: ";
-		cin >> userInput;
-		messageToSend.From = userInput;
-
-		cout << "Message: ";
-		cin.ignore();
-		getline(cin, userInput);
-		messageToSend.Message = userInput;
-		//messagedata asset
-		//3 strings
-
-		Folder.push_back(messageToSend);
-		//put into folder
-
-		system("CLS");
-	}
-
-	void ReadMessages()
-	{
-		for (MessageData data : Folder)
-		{
-			if (data.To == User.CurrentUser)
-			{
-				cout << "To: " << data.To + "\n";
-				cout << "From: " + data.From + "\n";
-				cout << "Message: " + data.Message + "\n\n";
-			}
-		}
-	}
-
-	void Logout()
-	{
-		cout << "You have logged out \n";
-		User.CurrentUser.clear();
-
-		system("CLS");
-	}
-
-	void PrintUsers()
-	{
-		cout << "print users: \n";
-		for (int i = 0; i < ListUsernames.Usernames.size(); i++)
-		{
-			cout << ListUsernames.Usernames[i];
-		}
-	}
-
-	void UserInterface()
-	{
-		string lines;
-
-		for(int i = 0; i < User.CurrentUser.size(); i ++)
-		{
-			lines.append("-");
-		}
-		cout << lines + "-----------------\n";
-		cout << "| Logged in as: " + User.CurrentUser + "|\n";
-		cout << lines + "-----------------\n";
-		cout << "\n--------------------------------------------------------------------------------------------";
-		cout << "\n|Press corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout |\n";
-		cout << "--------------------------------------------------------------------------------------------";
-	}
+	void Login();
+	void SendMessage();
+	void ReadMessages();
+	void Logout();
+	void UserInterface();
 };
 
-//Next steps
-//clear screen system("cls");
-// 
-// FINISHED
-//Don't make me type so much for the menu
-//Error messages if I enter something wrong
-//How do I know who I'm logged in as?
-//mAKE IT CASE insenstive
+void UserCommands::Login()
+{
+	string userInput;
 
+	cout << "Enter Username: ";
+	cin >> userInput;
+	User.CurrentUser.append(userInput);
+
+	system("CLS");
+}
+
+void UserCommands::SendMessage()
+{
+	MessageData messageToSend;
+
+	string userInput;
+
+
+	cout << "To: ";
+	cin >> userInput;
+	messageToSend.To = userInput;
+
+	cout << "From: ";
+	cin >> userInput;
+	messageToSend.From = userInput;
+
+	cout << "Message: ";
+
+	cin.ignore();
+	getline(cin, userInput);
+	messageToSend.Message = userInput;
+
+	Folder.push_back(messageToSend);
+
+	system("CLS");
+}
+
+void UserCommands::ReadMessages()
+{
+	for (MessageData data : Folder)
+	{
+		if (data.To == User.CurrentUser)
+		{
+			cout << "To: " << data.To + "\n";
+			cout << "From: " + data.From + "\n";
+			cout << "Message: " + data.Message + "\n\n";
+		}
+	}
+}
+
+void UserCommands::Logout()
+{
+	cout << "You have logged out \n";
+	User.CurrentUser.clear();
+
+	system("CLS");
+}
+
+void UserCommands::UserInterface()
+{
+	string lines;
+
+	for (int i = 0; i < User.CurrentUser.size(); i++)
+	{
+		lines.append("-");
+	}
+	cout << lines + "-----------------\n";
+	cout << "| Logged in as: " + User.CurrentUser + "|\n";
+	cout << "--------------------------------------------------------------------------------------------";
+	cout << "\n|Press corrosponding key: s = SendMessage, r = Read messages, c = Clear Window,  l = Logout |\n";
+	cout << "--------------------------------------------------------------------------------------------\n";
+}
 
 int main()
 {
 	UserCommands commands;
 
-	string userInput;
 	char userKey = ' ';
 
 	while (1)
@@ -142,27 +120,18 @@ int main()
 
 				userKey = _getch();
 
-				//cin >> userInput;
-
-				//making userinput to lowercase to match inputcommands, even if user wants uppercase
-				//for (int i = 0; i < userInput.size(); i++)
-				//{
-				//	userInput[i] = tolower(userInput[i]);
-				//}
-
-				//same as above but for char
 				for (int i = 0; i < userKey; i++)
 				{
 					userKey = tolower(userKey);
 				}
 
-				if (userInput == "send" || userKey == 's')
+				if (userKey == 's')
 				{
 					commands.SendMessage();
 
 				}
 
-				else if (userInput == "read" || userKey == 'r')
+				else if (userKey == 'r')
 				{
 					commands.ReadMessages();
 				}
@@ -172,7 +141,7 @@ int main()
 					system("CLS");
 				}
 
-				else if (userInput == "logout" || userKey == 'l')
+				else if (userKey == 'l')
 				{
 					commands.Logout();
 				}
@@ -192,21 +161,3 @@ int main()
 
 	return 0;
 }
-
-
-				//else if (userInput == "users" || userKey == 'u')
-				//{
-				//	commands.PrintUsers();
-				//}
-
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
