@@ -125,10 +125,10 @@ int main()
 
 	while (1)
 	{
-			if(!commands.User.CurrentUser.empty())
+			if(!commands.GetUser().empty())
 			{
 
-				commands.UserInterface();
+				interface.WindowUI();
 
 				userKey = _getch();
 
