@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <conio.h>
 
 using namespace std;
 
@@ -65,7 +66,7 @@ public:
 		//put into folder
 	}
 
-	void PrintMessages()
+	void ReadMessages()
 	{
 		for (MessageData data : Folder)
 		{
@@ -97,11 +98,11 @@ public:
 };
 
 //Next steps
-//Error messages if I enter something wrong
-//Don't make me type so much for the menu
 //clear screen system("cls");
 // 
 // FINISHED
+//Don't make me type so much for the menu
+//Error messages if I enter something wrong
 //How do I know who I'm logged in as?
 //mAKE IT CASE insenstive
 
@@ -111,39 +112,49 @@ int main()
 	UserCommands commands;
 
 	string userInput;
+	char userKey = ' ';
 
 	while (1)
 	{
 			if(!commands.User.CurrentUser.empty())
 			{
 
-				cout << "Logged in as: " + commands.User.CurrentUser;
-				cout << "\nYour options are: Send, Read, Logout \n";
+				cout << "\nLogged in as: " + commands.User.CurrentUser;
+				cout << "\nPress corrosponding key: s = SendMessage, r = Read messages,  l = Logout \n";
 
-				cin >> userInput;
+				userKey = _getch();
 
-				for (int i = 0; i < userInput.size(); i++)
+				//cin >> userInput;
+
+				//making userinput to lowercase to match inputcommands, even if user wants uppercase
+				//for (int i = 0; i < userInput.size(); i++)
+				//{
+				//	userInput[i] = tolower(userInput[i]);
+				//}
+
+				//same as above but for char
+				for (int i = 0; i < userKey; i++)
 				{
-					userInput[i] = tolower(userInput[i]);
+					userKey = tolower(userKey);
 				}
 
-				if (userInput == "send")
+				if (userInput == "send" || userKey == 's')
 				{
 					commands.SendMessage();
 					system("CLS");
 				}
 
-				else if (userInput == "read")
+				else if (userInput == "read" || userKey == 'r')
 				{
-					commands.PrintMessages();
+					commands.ReadMessages();
 				}
 
-				else if (userInput == "users")
+				else if (userInput == "users" || userKey == 'u')
 				{
 					commands.PrintUsers();
 				}
 
-				else if (userInput == "logout")
+				else if (userInput == "logout" || userKey == 'l')
 				{
 					commands.Logout();
 					system("CLS");
