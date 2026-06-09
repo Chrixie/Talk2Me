@@ -17,12 +17,6 @@ struct MessageData
 	string Message;
 };
 
-class UserInterface
-{
-public:
-	void UIHeaderMessage(string user);
-};
-
 class UserCommands
 {
 public:
@@ -31,6 +25,8 @@ public:
 	void SendMessage();
 	void ReadMessages();
 	void Logout();
+
+	void UIHeaderMessage(string user);
 
 	string GetUser() { return User.CurrentUser; }
 
@@ -43,7 +39,6 @@ class ProgramLoop
 {
 private:
 	UserCommands commands;
-	UserInterface ui;
 
 	char userKey = ' ';
 
@@ -109,7 +104,7 @@ void UserCommands::Logout()
 	system("CLS");
 }
 
-void UserInterface::UIHeaderMessage(string user)
+void UserCommands::UIHeaderMessage(string user)
 {
 	string lines;
 
@@ -131,7 +126,7 @@ void ProgramLoop::Run()
 		if (!commands.GetUser().empty())
 		{
 
-			ui.UIHeaderMessage(commands.GetUser());
+			commands.UIHeaderMessage(commands.GetUser());
 
 			userKey = _getch();
 
